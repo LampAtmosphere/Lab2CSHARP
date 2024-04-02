@@ -1,30 +1,34 @@
 ﻿using System;
-using System.Linq.Expressions;
 
 class Program
 {
     static void Main()
     {
+        int n;
+        double x;
 
-        Console.Write("Введите N: ");
-        int n = Convert.ToInt32(Console.ReadLine());
-   
+        do
+        {
+            Console.Write("Введите N (целое число): ");
+        }
+        while (!int.TryParse(Console.ReadLine(), out n));
 
+        do
+        {
+            Console.Write("Введите X (между -1 и 1, не включая 1): ");
+        }
+        while (!double.TryParse(Console.ReadLine(), out x) || x <= -1 || x >= 1);
 
-        Console.Write("Введите X (между -1 и 1, не включая 1): ");
-        double x = Convert.ToDouble(Console.ReadLine());
-
-        Console.WriteLine("Результат: " + CalcLn(1 - x, n));
+        Console.WriteLine($"Результат: {CalcLn(1 - x, n)}");
     }
 
     static double CalcLn(double x, int n)
     {
         double sum = 0;
-        for (int k = 1; k <= n; k++)
+        for (int i = 1; i <= n; i++)
         {
-            sum += (k % 2 == 0 ? -1 : 1) * Math.Pow(x, k) / k;
+            sum += Math.Pow(x, i) / i;
         }
-        return sum;
+        return -sum;
     }
 }
-
